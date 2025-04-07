@@ -1,0 +1,432 @@
+.Dashboard-section{
+    width: 95vw;
+    height: 200vh;
+    background-color: aquamarine;
+    display: flex;
+}
+
+.dash-first-sec{
+    width: 55vw;
+    height: 200vh;
+    background-color: rgb(0, 0, 0);
+    border: white solid 1px;
+    position: relative;
+}
+.dash-first-main{
+    display: flex;
+}
+
+.p-btn{
+    margin-left: 19rem;
+    background-color: white;
+    color: black;
+    width: 10vw;
+    height: 6vh;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+.p-btn:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+.dash-second-sec{
+    width: 40vw;
+    height: 200vh;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid white;
+}
+
+.dash-heading{
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.dash-para{
+    color: white;
+    font-size: 13px;
+    margin-left: 33px;
+    letter-spacing: 2px;
+}
+
+.dash-project-div{
+    width: 50vw;
+    height: 23vh;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.dash-heading2{
+    color: black;
+    font-size: 18px;
+    padding-top:10px;
+    margin-left: 30px;
+    font-weight: 500;
+    word-spacing: 33rem;
+    color :rgb(0, 0, 0);
+}
+
+.dash-project-prog{
+    width: 49vw;
+    height: 14.5vh;
+    background-color: rgb(254, 254, 254);
+    margin-left:0.5rem;
+    display: flex;
+    justify-content: space-around;
+    color :rgb(0, 0, 0);
+    margin-top: 0.5rem;
+}
+
+.completed{
+    width: 10vw;
+    height: 14.5vh;
+    background-color: rgba(132, 231, 153, 0.767);
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.ongoing{
+    width: 10vw;
+    height: 14.5vh;
+    background-color: rgba(208, 171, 212, 0.81);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.pending{
+    width: 10vw;
+    height: 14.5vh;
+    background-color: rgba(152, 193, 232, 0.79);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.statusofproject{
+    color: black;
+}
+.total{
+    width: 10vw;
+    height: 14.5vh;
+    background-color: rgba(237, 232, 108, 0.866);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.project-count{
+    color: white;
+    font-size: 18px;
+    margin-left: 30px;
+    font-weight: 600;
+    padding-top: 1.5rem;
+    line-height: 25px;
+    color :rgb(0, 0, 0);
+}
+
+.project-tag{
+    padding-left: 1.5rem;
+    font-weight: 300;
+    font-size: 15px;
+    color :rgb(0, 0, 0);
+}
+.inner-p-div{
+    display: flex;
+}
+.icon-span{
+    display: flex;
+}
+.check-icon{
+    width: 1rem;
+    height: 1rem;
+    margin-left: 5px;
+    margin-top: 4px;
+    fill: white;
+    cursor: pointer;
+    /* background-color: antiquewhite; */
+}
+
+.filter-div{
+    width: 50vw;
+    height: 8vh;
+    /* background-color: white; */
+    margin-top: 0.5rem;
+    margin-left: 30px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.filter-btn-1{
+    width: 7vw;
+    height: 5vh;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    margin-top: 2%;
+    color: rgb(0, 0, 0);
+}
+
+.filter-div-btn{
+    width: 7vw;
+    height: 5vh;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    margin-top: 2%;
+    margin-left: 3%;
+    color: rgb(0, 0, 0);
+}
+
+.filter-div-btn:hover{
+    background-color: rgba(128, 128, 128, 0.462);
+    backdrop-filter: blur(50px);
+    color: aliceblue;
+    cursor: pointer;
+    border: rgba(255, 255, 255, 0.579) 0.5px solid;
+}
+.filter-div-search{
+    width: 16vw;
+    height: 5vh;
+    border-radius: 10px;
+    border: none;
+    padding-left: 2%;
+    margin-left: 3%;
+    outline: none;
+    color: black;
+}
+/* .all-project-list-div{
+    width: 50vw;
+    height: 100vh;
+    background-color: white;
+    margin-top: 0.5rem;
+    margin-left: 30px;
+    border-radius: 10px;
+} */
+
+.all-project-list-div {
+    width: 48vw;             /* 50% of the viewport width */
+    height: 100vh;           /* 100% of the viewport height */
+    background-color: white;
+    margin-top: 0.5rem;
+    margin-left: 30px;
+    border-radius: 10px;
+    display: grid;           /* Enable grid layout */
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    grid-template-rows: repeat(8, 1fr);    /* 8 rows, each having equal height */
+    row-gap: 10px;           /* Gap between the grid items */
+    padding: 20px;           /* Padding around the grid */
+    overflow-y: auto;        /* Allow vertical scrolling if the content overflows */
+  }
+
+  .project-item {
+    background-color: #9a3e3e;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    width: 80%;             /* Decrease the width of each item */
+    height: 45vh;
+    margin: 0 auto; 
+    height: 20vh; 
+    color: rgba(0, 0, 0, 0.723);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+.p-title{
+    font-size: 17px;
+    font-weight: 600;
+    color: rgb(54, 54, 54);
+}
+
+.p-desc{
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(54, 54, 54);
+}
+
+.p-desc-2{
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(54, 54, 54);
+    padding-left: 1%;
+    padding-left: 1%;
+    border-radius: 2px;
+}
+.p-role{
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(54, 54, 54);
+}
+
+.p-members{
+    color: rgb(54, 54, 54);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.p-see-more{
+    color: rgb(5, 31, 41);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.create-project-sec{
+    width: 30vw;
+    height: 110vh;
+    background-color: white;
+    position: absolute;
+    top:  10%;
+    left: 60%;
+    border-radius: 10px;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    visibility: hidden;
+}
+
+.project-form-lable{
+    color: black;
+    padding-left: 10%;
+}
+.create-project-input{
+    width: 70%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    outline: none;
+    margin-left: 10%;
+    margin-bottom: 3%;
+    color: black;
+}
+
+.create-project-btn{
+    margin-left: 30%;
+    outline: none;
+    width: 10vw;
+    height: 5vh;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-project-option{
+    color: black;
+}
+
+.members-btn{
+    display: flex;
+    /* background-color: #9a3e3e; */
+    width: 30vw;
+    justify-content: space-evenly;
+    margin-right: 10%;
+    margin-bottom: 2%;
+}
+
+.create-project-btn1{
+    outline: none;
+    width: 10vw;
+    height: 5vh;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-form-icon{
+    width: 20px;
+    height: 20px;
+    margin-left: 90%;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.add-task{
+    width: 25vw;
+    height: 5vh;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    padding-left: 10px;
+    margin-left: 7%;
+    margin-top: 5%;
+}
+
+.add-task-btn{
+    outline: none;
+    width: 7vw;
+    height: 5vh;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5%;
+    margin-left: 2%;
+    border: 1px solid white;
+}
+
+.add-task-btn:hover{
+    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(50px);
+    color: rgb(0, 0, 0);
+    border: 0.5px solid black;
+    cursor: pointer;
+}
+
+.to-do-tasks-div{
+    width: 34vw;
+    height: 60vh;
+    background-color: white;
+    margin-left: 7%;
+    margin-top: 5%;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+    overflow-y: scroll;
+}
+
+.inside-task-div{
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(0, 0, 0);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.tasks-btns{
+    display: flex;
+    justify-content: space-between;
+    width: 32%;
+}
+.task-done-btn{
+    width: 5vw;
+    height: 5vh;
+    border: none;
+    background-color: rgba(0, 128, 0, 0.574);
+    color: white;
+    border-radius: 5px;
+}
+
+.task-delete-btn{
+    width: 5vw;
+    height: 5vh;
+    border: none;
+    background-color: rgba(223, 19, 19, 0.574);
+    color: white;
+    border-radius: 5px;
+}

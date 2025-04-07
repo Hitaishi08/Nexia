@@ -1,0 +1,300 @@
+/* General Profile Section */
+.profile-section {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    /* padding-top: 2%; */
+    color : black;
+}
+
+/* Profile Main Content */
+.profile-sec-1 {
+    width: 65vw;
+    height: 72vh;
+    background-color: rgb(255, 255, 255);
+    margin-left: 13%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    padding: 2%;
+    color : black;
+}
+
+/* Header Style */
+.headname {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+    margin-left: 40%;
+    color : rgb(255, 255, 255);
+}
+
+/* Main Container */
+.main-container {
+    width: 85vw;
+    height: 72vh;
+    /* background-color: rgb(195, 242, 94); */
+    display: flex;
+    color : black;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+/* Left Section */
+.left-sec {
+    width: 30%;
+    height: 72vh;
+    background-color: rgb(255, 255, 255);
+    color : black;
+}
+
+/* Right Section */
+.right-sec {
+    width: 68%;
+    height: 72vh;
+    color : black;
+    background-color: rgb(255, 255, 255);
+    /* padding-top: 21%; */
+}
+
+.bio-area{
+    text-align: left;
+    /* background-color: aqua; */
+    width: 35vw;
+    margin-left: 7%;
+}
+
+.bio-data{
+    color: rgb(52, 52, 52);
+    margin-top: 2%;
+    padding-left: 0;
+    font-size: 0.8rem;
+}
+
+/* Profile Image */
+.profile-img {
+    width: 16vw;
+    height: 35vh;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-left: 7%;
+    color : black;
+    margin-top: 2%;
+    border: 2px solid rgb(125, 193, 171);
+    position: relative;
+}
+.profile-img-display{
+    width: 16vw;
+    height: 35vh;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+}
+
+.editmode-img{
+    width: 16vw;
+    height: 35vh;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+}
+
+#image-upload{
+    position: absolute;
+    top: 14rem;
+    left: 5rem;
+}
+/* Editable Fields Section */
+.editable-field {
+    /* display: flex; */
+    align-items: center;
+    margin-bottom: 10px;
+    color : black;
+}
+
+/* Labels for Editable Fields */
+.bio-label, .bio-label2 {
+    font-size: 0.8rem;
+    color: rgb(52, 52, 52);
+    margin-right: 10px;
+    color : black;
+    margin-top: 2%;
+    margin-left: 7%;
+    font-weight: 500;
+}
+.address-input{
+    width: 15vw;
+    height: 4vh;
+    border: 1px solid rgb(125, 193, 171);
+}
+
+.address-section{
+    margin-left: 0;
+    width: 20vw;
+    /* background-color: aquamarine; */
+    padding-left: 0;
+}
+/* Input Fields */
+.bio-input {
+    width: 14vw;
+    height: 4vh;
+    border: 1px solid rgb(125, 193, 171);
+    padding-left: 10px;
+    font-size: 0.8rem;
+    /* color: rgb(52, 52, 52); */
+    font-weight: 500;
+    color : black;
+    margin-right: 10px;
+    margin-top: 2%;
+    margin-left: 7%;
+}
+
+
+.text-area {
+    width: 35vw;
+    height: 10vh;
+    color: black;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid rgb(125, 193, 171);
+}
+
+/* Edit Icon */
+.edit-img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+/* Address Section */
+.address-section {
+    display: flex;
+    color : black;
+    gap: 10px;
+    margin-left: 7%;
+}
+
+.address-input {
+    width: 6.5vw;
+    margin-bottom: 1%;
+    color : black;
+}
+
+/* Skills Section */
+.skills-list {
+    margin-top: 10px;
+    color : black;
+}
+
+.skill-item {
+    font-size: 1rem;
+    color: rgb(0, 0, 0);
+    margin-bottom: 5px;
+}
+
+/* Flex Layout for Role Section */
+.role-section {
+    display: flex;
+    align-items: center;
+    color : black;
+}
+.skills-list{
+    margin-left: 7%;
+    width: 40vw;
+    display: flex;
+    gap: 5px;
+}
+.skill-item{
+    width: 8vw;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 0.8rem;
+}
+.remove-skill{
+    width: 15px;
+    height: 15px;
+    margin-left: 20%;
+    padding-top: 8%;
+}
+span{
+    color : black;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    margin-top: 2%;
+    margin-left: 7%;
+}
+
+.address-text{
+    color : black;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    margin-top: 2%;
+    margin-left: 0;
+    /* margin-left: 7%; */
+}
+
+.edit-button{
+    width: 8vw;
+    height: 30px;
+    background-color: transparent;
+
+    border: white 0.5px solid;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-left: 73%;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Adjust layout to stack sections for smaller screens */
+    .profile-sec-1 {
+        flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .left-sec, .right-sec {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .profile-img {
+        width: 30vw;
+        height: 30vh;
+    }
+
+    .bio-input,
+    .text-area {
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .bio-label,
+    .bio-label2 {
+        margin-left: 5%;
+    }
+
+    /* Adjust the input sizes */
+    .bio-input,
+    .skills-section input,
+    .professional-info-section input,
+    .student-info-section input {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    /* Stack Address inputs for smaller screens */
+    .address-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .address-input {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,44 @@
+.hero-sec-img{
+    width: 95vw;
+    height: 95vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../assets/bg1.jpg');
+}
+
+.hero-sec-heading{
+    font-size: 5rem;
+    color: white;
+    text-align: center;
+    padding-top: 20vh;
+}
+
+.hero-sec-desc{
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    padding-top: 2vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    /* background-color: aqua; */
+}
+.hero-sec-btn{
+    width: 150px;
+    height: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    margin-top: 30px;
+    margin-left: 45%;
+}
+
+.hero-sec-btn:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}

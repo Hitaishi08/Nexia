@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+.signin-section{
+    width: 95vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #030202;
+    background-image: url('../assets/bg1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.signin-card{
+    width: 30vw;
+    height: 45vh;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    /* box-shadow: 0 5px 10px rgba(0,0,0,0.2); */
+    margin: 80px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.signin-heading{
+    font-size: 35px;
+    font-weight: 600;
+    margin-left: 7%;
+}
+.signin-desc{
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-left: 7%;
+}
+
+.signin-label{
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-left: 7%;
+}
+
+.signin-input{
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    margin-left: 7%;
+    background-color: transparent;
+    outline: none;
+}
+
+.signin-button:hover{
+    background-color: #df3143;
+}
+.signin-button{
+    width: 50%;
+    padding: 10px 20px;
+    background-color: #ca1919;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-left: 25%;
+    transition: background-color 0.3s ease;
+}
+.log-in-option{
+    font-size: 12px;
+    margin-left: 30%;
+    margin-bottom: 20px;
+    margin-top: 1.5%;
+}
