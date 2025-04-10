@@ -2,6 +2,7 @@ const express = require('express');
 const {connectToMongoDB}  = require('./connection')
 const Authrouter = require('./routes/authRoutes')
 const projectroute = require('./routes/projectRoutes');
+const profileRoutes = require('./routes/profileRoutes')
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -40,7 +41,9 @@ app.get('/cookie-parse',(req, res) => {
         res.status(404).json({message : 'No cookie found'});
     }
 })
+
 app.use('/user',Authrouter);
 app.use('/',projectroute);
 app.use('/api/reports', reportRoutes);
+app.use('/profile',profileRoutes);
 app.listen(PORT,()=>console.log(`server started at ${PORT}`))

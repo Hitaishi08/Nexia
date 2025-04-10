@@ -4,7 +4,8 @@
 }
 
 .nav-section{
-    background-color: #000000;
+    /* background-color: #000000; */
+    background-color: #0f1419;
     height: 100vh;
     width: 5vw;
     position: sticky;
@@ -151,4 +152,13 @@ ul{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     font-weight: 500;
     color: #000000;
+}
+
+.profilephoto{
+    background-color: aliceblue;
+    width: 3vw;
+    height: 6vh;
+    border-radius: 50%;
+    margin-left: 1rem;
+    margin-top: 7rem;
 }

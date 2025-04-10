@@ -8,8 +8,9 @@
 .dash-first-sec{
     width: 55vw;
     height: 200vh;
-    background-color: rgb(0, 0, 0);
-    border: white solid 1px;
+    /* background-color: rgb(0, 0, 0); */
+    background-color: #0f1419;
+    /* border: white solid 1px; */
     position: relative;
 }
 .dash-first-main{
@@ -36,8 +37,9 @@
 .dash-second-sec{
     width: 40vw;
     height: 200vh;
-    background-color: rgb(0, 0, 0);
-    border: 1px solid white;
+    /* background-color: rgb(0, 0, 0); */
+    background-color: #0f1419;
+    /* border: 1px solid white; */
 }
 
 .dash-heading{

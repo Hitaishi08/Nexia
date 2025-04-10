@@ -1,4 +1,4 @@
-import {React,useState} from 'react'
+import {React,useEffect,useState} from 'react'
 import "./NavBar.css"
 import user from '../assets/user (1).png'
 import dashboard from '../assets/dashboard (1).png'
@@ -11,6 +11,7 @@ import axios from 'axios'
 
 const NavBar = () => {
   const [loggout,setloggout] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
   const logoutfunc = async (e) => {
     e.preventDefault()
     if(!loggout){
@@ -30,6 +31,21 @@ const NavBar = () => {
     alert("already logged out");
   }
   }
+  useEffect(()=>{
+    fetchProfileImage();
+  },[]);
+
+    const fetchProfileImage = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/profile/profilepicture`, {
+          withCredentials: true,
+        });
+        console.log("image data:", res.data)
+        setProfileImage(res.data.imageUrl); // directly use the URL
+      } catch (err) {
+        console.error("Error fetching image:", err);
+      }
+    };
   return (
     <>
     <div className='nav-section'>
@@ -41,6 +57,11 @@ const NavBar = () => {
         <div className='item div-item4'><img src={bell} alt="bell" className='icon'/></div>
         <div className='item div-item5' onClick={(e)=>{logoutfunc(e)}}><img src={logout} alt="logout" className='icon'/></div>
         </div>
+        <img 
+        src={profileImage ? profileImage : logo} 
+        alt="User"  
+        className='profilephoto'
+        />
     </div>
     </>
   )

@@ -1,352 +1,369 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import TopBar from './TopBar';
 import NavBar from './NavBar';
 import './Profile.css';
-import cross from '../assets/cross.png'
+import cross from '../assets/cross.png';
+
+const API_URL = "http://localhost:3000"; // Replace with your backend URL
 
 const Profile = () => {
-  const [isProfessional, setIsProfessional] = useState(true); // Role state to toggle Professional/Student
-  const [skills, setSkills] = useState([]); // Skills array to store entered skills
-  const [skillInput, setSkillInput] = useState(""); // Track skill input
+  const [username, setUsername] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [userData, setUserData] = useState({
-    username: "John Doe",
-    email: "johndoe@gmail.com",
-    github: "github.com/johndoe",
-    linkedin: "linkedin.com/in/johndoe",
-    bio: "This is a sample bio.",
-    address: "New York, USA",
-    jobTitle: "Software Developer",
-    company: "XYZ Corp.",
-    experience: "5 years",
-    university: "ABC University",
-    course: "Computer Science",
-    yearOfStudy: "3rd Year",
+    username: "",
+    email: "",
+    github: "",
+    linkedin: "",
+    bio: "",
+    address: "",
+    jobTitle: "",
+    company: "",
+    experience: "",
+    university: "",
+    course: "",
+    yearOfStudy: "",
   });
+  const [profileImage, setProfileImage] = useState(null);
+  const [skills, setSkills] = useState([]);
+  const [newSkill, setNewSkill] = useState("");
+  const [isProfessional, setIsProfessional] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const [profileImage, setProfileImage] = useState(null); // State to store the profile image
-  const [editMode, setEditMode] = useState(false); // Toggle for enabling/disabling editing
 
-  const handleRoleChange = (e) => {
-    setIsProfessional(e.target.value === 'Professional');
-  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
-  const handleSkillAdd = () => {
-    if (skillInput.trim()) {
-      setSkills([...skills, skillInput]);
-      setSkillInput(""); // Clear the skill input after adding
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/profile/getprofile`, {
+        withCredentials: true,
+      });
+      const data = response.data;
+      console.log(response.data);
+      setUserData({
+        username: data.username || "",
+        email: data.email || "",
+        github: data.github || "",
+        linkedin: data.linkedin || "",
+        bio: data.bio || "",
+        address: data.address || "",
+        jobTitle: data.jobTitle || "",
+        company: data.company || "",
+        experience: data.experience || "",
+        university: data.university || "",
+        course: data.course || "",
+        yearOfStudy: data.yearOfStudy || "",
+      });
+
+      setSkills(data.skills || []);
+      setIsProfessional(!!data.jobTitle);
+      fetchProfileImage();
+      setLoading(false);
+      console.log("profile : ",profileImage);
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+      setLoading(false);
     }
   };
 
-  const handleSkillRemove = (skill) => {
-    setSkills(skills.filter((item) => item !== skill));
+  const fetchProfileImage = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/profile/profilepicture`, {
+        withCredentials: true,
+      });
+      console.log("image data:", res.data)
+      setProfileImage(res.data.imageUrl); // directly use the URL
+    } catch (err) {
+      console.error("Error fetching image:", err);
+    }
   };
+  
 
-  const handleInputChange = (e, field) => {
-    const value = e.target.value;
-    setUserData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
+  const toggleEditMode = async () => {
+    if (!editMode) {
+      setEditMode(true);
+      return;
+    }
 
-  const handleSaveChanges = () => {
+    try {
+      const formData = new FormData();
+      Object.entries(userData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      formData.append('skills', skills.join(','));
+
+      if (profileImage && profileImage.startsWith("data:")) {
+        const blob = await fetch(profileImage).then((res) => res.blob());
+        formData.append("profilePicture", blob, "profile.jpg");
+      }
+
+      await axios.post(`${API_URL}/profile/upsert`, formData, {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      console.log("✅ Profile created/updated successfully.");
+    } catch (err) {
+      console.error("❌ Failed to create/update profile:", err);
+    }
+
     setEditMode(false);
   };
 
-  const handleImageUpload = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result); // Store the image preview in state
-      };
-      reader.readAsDataURL(file); // Convert the file to a data URL
+      reader.onloadend = () => setProfileImage(reader.result);
+      reader.readAsDataURL(file);
     }
   };
 
+  const handleAddSkill = (e) => {
+    e.preventDefault();
+    if (newSkill.trim() && !skills.includes(newSkill.trim()) && skills.length < 10) {
+      setSkills([...skills, newSkill.trim()]);
+      setNewSkill("");
+    }
+  };
+
+  const handleRemoveSkill = (skill) => {
+    setSkills(skills.filter((item) => item !== skill));
+  };
+
+  if (loading) return <div className="profile-wrapper">Loading profile...</div>;
+
   return (
-    <>
-      <div className="container">
-        <div className="side-nav-section">
-          <NavBar />
-        </div>
-        <div className="main-section">
-          <TopBar />
-          <div className="component-section">
-            <div className="profile-section">
-              <h1 className="headname">#Profile</h1>
-              <button
-                className="edit-button"
-                onClick={() => {
-                  if (editMode) {
-                    handleSaveChanges();
-                  } else {
-                    setEditMode(true);
-                  }
-                }}
-              >
-                {editMode ? "Save" : "Edit All"}
-              </button>
-              <div className="profile-sec-1">
-                <div className="main-container">
-                  {/* Left Section */}
-                  <div className="left-sec">
-                    <div className="profile-img">
-                      {editMode ? (
-                        <div className='edit-image-container'>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                            id="image-upload"
-                            className='image-upload'
-                          />
-                          {profileImage && <img className='editmode-img' src={profileImage} alt="Profile" />}
-                        </div>
+    <div className="profile-wrapper">
+      <NavBar />
+      <main className="profile-main">
+        <TopBar />
+        <div className="profile-content">
+          <div className="profile-header">
+            <h1>User Profile</h1>
+            <button 
+              className={`edit-btn ${editMode ? 'save' : ''}`}
+              onClick={toggleEditMode}
+            >
+              {editMode ? 'Save' : 'Edit'}
+            </button>
+          </div>
+
+          <div className="profile-layout">
+            <section className="profile-avatar-section">
+              <div className="avatar-wrapper">
+                {editMode ? (
+                  <label className="avatar-upload">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      hidden
+                    />
+                    <div className="avatar-overlay">
+                      {profileImage ? (
+                        <img src={profileImage} alt="Preview" />
                       ) : (
-                        <img
-                          src={profileImage || '/default-avatar.png'} // Fallback image if no image is uploaded
-                          alt="Profile"
-                          className="profile-img-display"
-                        />
+                        <span>Change Photo</span>
                       )}
                     </div>
-                    <div className="profile-bio">
-                      <div className="editable-field">
-                        <label className="bio-label">Username</label><br />
-                        {editMode ? (
-                          <input
-                            className="bio-input"
-                            value={userData.username}
-                            onChange={(e) => handleInputChange(e, 'username')}
-                          />
-                        ) : (
-                          <span>{userData.username}</span>
-                        )}
-                      </div>
+                  </label>
+                ) : (
+                  <img
+                    src={profileImage || '/default-avatar.png'}
+                    alt="Profile"
+                    className="avatar-img"
+                  />
+                )}
+              </div>
 
-                      <div className="editable-field">
-                        <label className="bio-label">Email</label><br />
-                        {editMode ? (
-                          <input
-                            className="bio-input"
-                            value={userData.email}
-                            onChange={(e) => handleInputChange(e, 'email')}
-                          />
-                        ) : (
-                          <span>{userData.email}</span>
-                        )}
-                      </div>
-
-                      <div className="editable-field">
-                        <label className="bio-label">GitHub</label><br />
-                        {editMode ? (
-                          <input
-                            className="bio-input"
-                            value={userData.github}
-                            onChange={(e) => handleInputChange(e, 'github')}
-                          />
-                        ) : (
-                          <span>{userData.github}</span>
-                        )}
-                      </div>
-
-                      <div className="editable-field">
-                        <label className="bio-label">LinkedIn</label><br />
-                        {editMode ? (
-                          <input
-                            className="bio-input"
-                            value={userData.linkedin}
-                            onChange={(e) => handleInputChange(e, 'linkedin')}
-                          />
-                        ) : (
-                          <span>{userData.linkedin}</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Section */}
-                  <div className="right-sec">
-                    <div className="editable-field">
-                      <label className="bio-label2">Bio</label>
-                      {editMode ? (
-                        <textarea
-                          className="text-area"
-                          value={userData.bio}
-                          onChange={(e) => handleInputChange(e, 'bio')}
-                        />
-                      ) : (
-                        <div className='bio-area'><p className='bio-data'>{userData.bio}</p></div>
-                      )}
-                    </div>
-
-                    <div className="editable-field">
-                      <label className="bio-label2">Address</label>
-                      <div className="address-section">
-                        {editMode ? (
-                          <>
-                            <input
-                              className="address-input"
-                              placeholder="City"
-                              value={userData.address.split(",")[0]}
-                              onChange={(e) =>
-                                handleInputChange(e, 'address')
-                              }
-                            />
-                            <input
-                              className="address-input"
-                              placeholder="Country"
-                              value={userData.address.split(",")[1]}
-                              onChange={(e) =>
-                                handleInputChange(e, 'address')
-                              }
-                            />
-                          </>
-                        ) : (
-                          <span className="address-text">{userData.address}</span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="editable-field">
-                      <label className="bio-label2">Role</label>
-                      {editMode ? (
-                        <select
-                          className="bio-input"
-                          value={isProfessional ? "Professional" : "Student"}
-                          onChange={handleRoleChange}
-                        >
-                          <option value="Professional">Professional</option>
-                          <option value="Student">Student</option>
-                        </select>
-                      ) : (
-                        <span>{isProfessional ? "Professional" : "Student"}</span>
-                      )}
-                    </div>
-
-                    {/* Additional sections based on role */}
-                    {isProfessional ? (
-                      <div>
-                        <div className="editable-field">
-                          <label className="bio-label">Job Title</label>
-                          {editMode ? (
-                            <input
-                              className="bio-input"
-                              value={userData.jobTitle}
-                              onChange={(e) => handleInputChange(e, 'jobTitle')}
-                            />
-                          ) : (
-                            <span>{userData.jobTitle}</span>
-                          )}
-                        </div>
-
-                        <div className="editable-field">
-                          <label className="bio-label">Company</label>
-                          {editMode ? (
-                            <input
-                              className="bio-input"
-                              value={userData.company}
-                              onChange={(e) => handleInputChange(e, 'company')}
-                            />
-                          ) : (
-                            <span>{userData.company}</span>
-                          )}
-                        </div>
-
-                        <div className="editable-field">
-                          <label className="bio-label">Years of Experience</label>
-                          {editMode ? (
-                            <input
-                              className="bio-input"
-                              value={userData.experience}
-                              onChange={(e) => handleInputChange(e, 'experience')}
-                            />
-                          ) : (
-                            <span>{userData.experience}</span>
-                          )}
-                        </div>
-                      </div>
+              <div className="contact-info">
+                {[
+                  { label: 'Email', key: 'email', type: 'email' },
+                  { label: 'GitHub', key: 'github', type: 'url' },
+                  { label: 'LinkedIn', key: 'linkedin', type: 'url' },
+                ].map(({ label, key, type }) => (
+                  <div key={key} className="info-item">
+                    <span className="info-label">{label}</span>
+                    {editMode ? (
+                      <input
+                        type={type}
+                        name={key}
+                        value={userData[key]}
+                        onChange={handleInputChange}
+                        className="info-input"
+                      />
                     ) : (
-                      <div>
-                        <div className="editable-field">
-                          <label className="bio-label">University</label>
-                          {editMode ? (
-                            <input
-                              className="bio-input"
-                              value={userData.university}
-                              onChange={(e) => handleInputChange(e, 'university')}
-                            />
-                          ) : (
-                            <span>{userData.university}</span>
-                          )}
-                        </div>
-
-                        <div className="editable-field">
-                          <label className="bio-label">Course</label>
-                          {editMode ? (
-                            <input
-                              className="bio-input"
-                              value={userData.course}
-                              onChange={(e) => handleInputChange(e, 'course')}
-                            />
-                          ) : (
-                            <span>{userData.course}</span>
-                          )}
-                        </div>
-
-                        <div className="editable-field">
-                          <label className="bio-label">Year of Study</label>
-                          {editMode ? (
-                            <input
-                              className="bio-input"
-                              value={userData.yearOfStudy}
-                              onChange={(e) => handleInputChange(e, 'yearOfStudy')}
-                            />
-                          ) : (
-                            <span>{userData.yearOfStudy}</span>
-                          )}
-                        </div>
-                      </div>
+                      <span className="info-value">{userData[key]}</span>
                     )}
-
-                    {/* Skills Section */}
-                    <div className="editable-field">
-                      <label className="bio-label">Skills</label>
-                      {editMode ? (
-                        <>
-                          <input
-                            className="bio-input"
-                            value={skillInput}
-                            onChange={(e) => setSkillInput(e.target.value)}
-                          />
-                          <button onClick={handleSkillAdd}>Add Skill</button>
-                        </>
-                      ) : (
-                        <div className="skills-list">
-                          {skills.map((skill, index) => (
-                            <div
-                              className="skill-item"
-                              key={index}
-                              style={{ backgroundColor: `#${Math.floor(Math.random()*16777215).toString(16)}` }}
-                              onClick={() => handleSkillRemove(skill)}
-                            >
-                              {skill}
-                              {/* <img src = {cross} onClick={() => handleSkillRemove(skill)} className='remove-skill'></img> */}
-                              {/* <button onClick={() => handleSkillRemove(skill)}>Remove</button> */}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
                   </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="profile-details">
+              <div className="info-group">
+                <div className="info-item">
+                  <span className="info-label">Username</span>
+                  {editMode ? (
+                    <input
+                      type="text"
+                      name="username"
+                      value={userData.username}
+                      onChange={handleInputChange}
+                      className="info-input"
+                    />
+                  ) : (
+                    <span className="info-value">{userData.username}</span>
+                  )}
                 </div>
               </div>
-            </div>
+
+              <div className="info-group">
+                <div className="info-item">
+                  <span className="info-label">Bio</span>
+                  {editMode ? (
+                    <textarea
+                      name="bio"
+                      value={userData.bio}
+                      onChange={handleInputChange}
+                      className="bio-input"
+                      rows={3}
+                    />
+                  ) : (
+                    <p className="info-value bio">{userData.bio}</p>
+                  )}
+                </div>
+                <div className="info-item">
+                  <span className="info-label">Address</span>
+                  {editMode ? (
+                    <input
+                      type="text"
+                      name="address"
+                      value={userData.address}
+                      onChange={handleInputChange}
+                      className="info-input"
+                    />
+                  ) : (
+                    <span className="info-value">{userData.address}</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="info-group">
+                <div className="info-item">
+                  <span className="info-label">Role</span>
+                  {editMode ? (
+                    <select
+                      value={isProfessional ? 'Professional' : 'Student'}
+                      onChange={(e) => setIsProfessional(e.target.value === 'Professional')}
+                      className="role-select"
+                    >
+                      <option value="Professional">Professional</option>
+                      <option value="Student">Student</option>
+                    </select>
+                  ) : (
+                    <span className="info-value">
+                      {isProfessional ? 'Professional' : 'Student'}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="info-group">
+                {isProfessional ? (
+                  <>
+                    {[
+                      { label: 'Job Title', key: 'jobTitle' },
+                      { label: 'Company', key: 'company' },
+                      { label: 'Experience', key: 'experience' },
+                    ].map(({ label, key }) => (
+                      <div key={key} className="info-item">
+                        <span className="info-label">{label}</span>
+                        {editMode ? (
+                          <input
+                            type="text"
+                            name={key}
+                            value={userData[key]}
+                            onChange={handleInputChange}
+                            className="info-input"
+                          />
+                        ) : (
+                          <span className="info-value">{userData[key]}</span>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {[
+                      { label: 'University', key: 'university' },
+                      { label: 'Course', key: 'course' },
+                      { label: 'Year of Study', key: 'yearOfStudy' },
+                    ].map(({ label, key }) => (
+                      <div key={key} className="info-item">
+                        <span className="info-label">{label}</span>
+                        {editMode ? (
+                          <input
+                            type="text"
+                            name={key}
+                            value={userData[key]}
+                            onChange={handleInputChange}
+                            className="info-input"
+                          />
+                        ) : (
+                          <span className="info-value">{userData[key]}</span>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+
+              <div className="info-group skills-group">
+                <span className="info-label">Skills</span>
+                {editMode && (
+                  <form onSubmit={handleAddSkill} className="skill-add">
+                    <input
+                      value={newSkill}
+                      onChange={(e) => setNewSkill(e.target.value)}
+                      placeholder="Add skill..."
+                      className="info-input skill-input"
+                      maxLength={25}
+                    />
+                    <button type="submit" className="skill-add-btn">+</button>
+                  </form>
+                )}
+                <div className="skills-list">
+                  {skills.map((skill, index) => (
+                    <div key={index} className="skill-chip">
+                      <span>{skill}</span>
+                      {editMode && (
+                        <button
+                          onClick={() => handleRemoveSkill(skill)}
+                          className="skill-remove"
+                        >
+                          <img src={cross} alt="Remove" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 

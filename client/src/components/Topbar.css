@@ -1,7 +1,8 @@
 .topbar-section{
     width: 95vw;
     height: 5vh;
-    background-color: black;
+    /* background-color: black; */
+    background-color: #0f1419;
     display: flex;
     flex-direction: row;
     align-items: center;
